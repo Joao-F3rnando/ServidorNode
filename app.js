@@ -1,43 +1,32 @@
-var express = require("express")
+import express from "express"
 var app = express()
 var port = process.env.PORT || 3000
-var bodyParser = require('body-parser')
-const sqlite3 = require('sqlite3').verbose();
-const DBPATH = 'bd_novo.db'
-var db = new sqlite3.Database(DBPATH)
+import bodyParser from 'body-parser'
+
+import { encrypt } from './crypt.js'
+import { createAccount } from "./createRestaurante.js"
+import { verificationUser } from "./verificationUser.js"
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
-
 
 app.get('/', function(req, res){
     res.header("Access-Control-Allow-Origin", "*")
     res.send("Olá!!!")
 })
 
-app.post("/dado", function(req, res)
+app.post("/createAccount", async function(req, res)
 {
     res.header("Access-Control-Allow-Origin", "*")
-    let user = req.body
-    console.log(user)
-    console.log("Recebi um dado")
-    res.send("JSON Recebido!!!")
+    req.body.password = encrypt(req.body.password)
+    res.send(await createAccount(req.body))
 })
 
-app.get("/tudo", function(req, res)
+app.post("/login", async function(req, res)
 {
     res.header("Access-Control-Allow-Origin", "*")
-    console.log("Estou aqui!")
-    db.all(`SELECT * FROM Usuario`, [], (err, rows) => 
-    {
-        if(err)
-        {
-            console.log("aqui 2")
-            res.send(err)
-        }
-        console.log(`Linhas: ${rows}`)
-        res.send(rows)
-    })
+    
+    res.send(await verificationUser(req.body))
 })
 
 app.listen(port, () => {
