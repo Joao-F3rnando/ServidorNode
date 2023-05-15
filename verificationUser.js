@@ -11,7 +11,8 @@ export async function verificationUser(userData) {
             if(comparePasswords(userData.password, userTeste.password))
             {
                 return {
-                    id: userTeste.id,
+                    id: userTeste.ID,
+                    teste: "teste",
                     status: true,
                     message: "Usuário encontrado"
                 }

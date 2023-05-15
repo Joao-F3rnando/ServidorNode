@@ -6,6 +6,7 @@ import bodyParser from 'body-parser'
 import { encrypt } from './crypt.js'
 import { createAccount } from "./createRestaurante.js"
 import { verificationUser } from "./verificationUser.js"
+import { returnName } from "./getData.js"
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
@@ -27,6 +28,12 @@ app.post("/login", async function(req, res)
     res.header("Access-Control-Allow-Origin", "*")
     
     res.send(await verificationUser(req.body))
+})
+
+app.post("/getRestaurantName", async function(req, res)
+{
+    res.header("Access-Control-Allow-Origin", "*")
+    res.send(await returnName(req.body))
 })
 
 app.listen(port, () => {
