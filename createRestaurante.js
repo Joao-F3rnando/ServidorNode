@@ -4,7 +4,7 @@ export async function createAccount(restaurantData) {
     try {
       const db = await openDB();
       await db.run(
-        "INSERT INTO restaurantUserData (email, restaurant_name, cpf_cnpj, password, address, contact) VALUES (?,?,?,?,?,?)",
+        "INSERT INTO restaurantUserData (email, restaurant_name, cpf_cnpj, password, address, contact, time) VALUES (?,?,?,?,?,?,?)",
         [
           restaurantData.email,
           restaurantData.restaurantName,
@@ -12,6 +12,7 @@ export async function createAccount(restaurantData) {
           restaurantData.password,
           restaurantData.address,
           restaurantData.contact,
+          restaurantData.time
         ]
       );
       return {
@@ -19,6 +20,8 @@ export async function createAccount(restaurantData) {
         status: true
       };
     } catch (err) {
-        return err.message.split(": ")[2].split(".")[1]
+        const error =  err.message.split(": ")[2].split(".")[1]
+        console.log(error)
+        return error
     }
   }
