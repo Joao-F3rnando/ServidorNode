@@ -7,6 +7,7 @@ import { encrypt } from './crypt.js'
 import { createAccount } from "./createRestaurante.js"
 import { verificationUser } from "./verificationUser.js"
 import { optionsData, returnName } from "./getData.js"
+import { changeData } from "./changeRestaurantData.js"
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
@@ -42,6 +43,11 @@ app.post("/getRestaurantData", async function(req, res)
     res.send(await optionsData(req.body))
 })
 
+app.post("/updateData", async function(req, res)
+{
+    res.header("Access-Control-Allow-Origin", "*")
+    res.send(await changeData(req.body))
+})
 app.listen(port, () => {
     console.log(`Entrei!!! Porta Usada: ${port}`)
 })

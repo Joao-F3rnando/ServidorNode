@@ -9,3 +9,9 @@ export async function openDB ()
         driver: pkg.Database
     })
 }
+
+export async function closeDB() {
+    const db = await openDB();
+    await db.close();
+    console.log('Banco de dados fechado');
+}
