@@ -48,6 +48,12 @@ app.post("/updateData", async function(req, res)
     res.header("Access-Control-Allow-Origin", "*")
     res.send(await changeData(req.body))
 })
+
+app.post("/getItensData", async function(req, res)
+{
+    res.header("Access-Control-Allow-Origin", "*")
+    res.send(await getItemData(req.body))
+})
 app.listen(port, () => {
     console.log(`Entrei!!! Porta Usada: ${port}`)
 })
