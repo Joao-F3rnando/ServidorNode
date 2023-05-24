@@ -8,6 +8,7 @@ import { createAccount } from "./createRestaurante.js"
 import { verificationUser } from "./verificationUser.js"
 import { optionsData, returnName } from "./getData.js"
 import { changeData } from "./changeRestaurantData.js"
+import { getItemData } from "./getItemData.js"
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
