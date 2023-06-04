@@ -45,4 +45,31 @@ export async function uploadFile(file){
         console.log('Upload file error', err)
     }
 }
-//https://drive.google.com/uc?export=view&id=1ulOxvKc-BTuPG1_VGux9_gvbtXMWwF9r
+
+export async function removeFile(id){
+    try{
+        const fileId = id
+        const auth = new google.auth.GoogleAuth({
+            keyFile: './googleDrive.json',
+            scopes: ['https://www.googleapis.com/auth/drive']
+        })
+
+        const driveService = google.drive({
+            version: 'v3',
+            auth
+        })
+
+        driveService.files.delete( { fileId }, (err, msg) =>{
+            if(err)
+            {
+                console.error(err)
+            }
+        })
+        return "Foto removida com sucesso!!!"
+
+    }catch(err){
+        console.log('Upload file error', err)
+    }
+}
+
+// removeFile('1ABAAwXZ9dUaT047w3guOvKOhmzQWRns4')

@@ -1,10 +1,10 @@
 import { closeDB, openDB } from './configDB.js'
 
 function transformData(data) {
-    const result = [];
+    const result = []
   
     data.forEach((item) => {
-      const existingResult = result.find((res) => res.board === item.board);
+      const existingResult = result.find((res) => res.board === item.board)
   
       if (existingResult) {
         existingResult.dishes.push({
@@ -27,7 +27,7 @@ function transformData(data) {
       }
     })
   
-    return result;
+    return result
   }
 
 export async function getItemData(userID)

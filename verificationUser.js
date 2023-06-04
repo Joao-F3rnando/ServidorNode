@@ -12,7 +12,6 @@ export async function verificationUser(userData) {
             {
                 return {
                     id: userTeste.ID,
-                    teste: "teste",
                     status: true,
                     message: "Usuário encontrado"
                 }
