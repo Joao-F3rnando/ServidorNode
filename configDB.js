@@ -11,7 +11,6 @@ export async function openDB ()
 }
 
 export async function closeDB() {
-    const db = await openDB();
-    await db.close();
-    console.log('Banco de dados fechado');
+    const db = await openDB()
+    await db.close()
 }

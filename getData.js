@@ -24,3 +24,34 @@ export async function optionsData(userID)
         return err
     }
 }
+
+export async function restaurantData(userID)
+{
+    try {
+        const db = await openDB()
+        const data = await db.get(`SELECT restaurant_name, address, contact, time, image FROM restaurantUserData WHERE ID='${userID}'`)
+        await closeDB()
+        return data 
+    } catch (err) {
+        return err
+    }
+}
+
+export async function getRestaurantId(userID)
+{
+    try {
+        const db = await openDB()
+        if(await db.get(`SELECT ID FROM restaurantUserData WHERE ID='${userID}'`))
+        {
+            await closeDB()
+            return true
+        }
+        else
+        {
+            await closeDB()
+            return false
+        }
+    } catch (err) {
+        return err
+    }
+}

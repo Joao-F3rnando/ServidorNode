@@ -1,4 +1,4 @@
-import { openDB } from './configDB.js'
+import { closeDB, openDB } from './configDB.js'
 
 export async function addItemOnMenu(itemData)
 {
@@ -19,10 +19,8 @@ export async function addItemOnMenu(itemData)
             itemData.price,
             activated
         ])
-        return {
-            response: `Prato cadastrado com sucesso!!!`,
-            status: true
-          }
+        await closeDB()
+        return 'Prato cadastrado com sucesso!!!'
     } catch (error) {
         console.log(error)
         return error
