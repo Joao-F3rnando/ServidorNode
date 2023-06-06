@@ -1,4 +1,5 @@
 import { closeDB, openDB } from './configDB.js'
+import { removeFile } from './saveDrive.js'
 
 export async function changeData(data)
 {
@@ -32,5 +33,28 @@ export async function changeData(data)
     } catch (err) {
         console.log(err)
         return err
+    }
+}
+
+export async function changePhoto(data)
+{
+    try {
+        const db = await openDB()
+        const oldImage = await db.get(`SELECT image from restaurantUserData WHERE ID='${data.idRestaurant}'`)
+        
+        if(oldImage.image === '1DBGw5tyRTCz538sQEBG2gB19d7BnOTCZ')
+        {
+            await db.run(`UPDATE restaurantUserData SET image='${data.idPhoto}' WHERE ID='${data.idRestaurant}'`)
+        }
+        else
+        {
+            await db.run(`UPDATE restaurantUserData SET image='${data.idPhoto}' WHERE ID='${data.idRestaurant}'`)
+            console.log(await removeFile(oldImage.image))
+        }
+
+        return true
+    } catch (error) {
+        console.log(error)
+        return error
     }
 }

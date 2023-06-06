@@ -8,13 +8,13 @@ import { encrypt } from './crypt.js'
 import { createAccount } from "./createRestaurante.js"
 import { verificationUser } from "./verificationUser.js"
 import { getRestaurantId, optionsData, restaurantData, returnName } from "./getData.js"
-import { changeData } from "./changeRestaurantData.js"
+import { changeData, changePhoto } from "./changeRestaurantData.js"
 import { getItemData } from "./getItemData.js"
 import { uploadFile } from "./saveDrive.js"
 import { upload } from "./configMulter.js"
 import { removeDishControl } from "./deleteItemData.js"
 import { addItemOnMenu } from "./addItemOnMenu.js"
-import { getDishs, removeDish } from "./editDishs.js"
+import { getDish, getDishes, removeDish, updateItem } from "./editDishs.js"
 import { returnResearch } from "./returnResearch.js"
 import { getMenuData } from "./getMenuData.js"
 import { makeAOrder } from "./makeAOrder.js"
@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(cors())
 
 app.get('/', function(req, res){
-    res.send("Olá!!!")
+    res.json("Olá!!!")
 })
 
 app.post("/createAccount", async function(req, res)
@@ -35,33 +35,33 @@ app.post("/createAccount", async function(req, res)
 
 app.post("/login", async function(req, res)
 {  
-    res.send(await verificationUser(req.body))
+    res.json(await verificationUser(req.body.user))
 })
 
 app.post("/getRestaurantName", async function(req, res)
 {
-    res.send(await returnName(req.body))
+    res.json(await returnName(req.body))
 })
 
 app.post("/getRestaurantData", async function(req, res)
 {
     
-    res.send(await optionsData(req.body))
+    res.json(await optionsData(req.body))
 })
 
 app.post("/updateData", async function(req, res)
 {
-    res.send(await changeData(req.body))
+    res.json(await changeData(req.body.restaurantData))
 })
 
 app.post("/getItensData", async function(req, res)
 {
-    res.send(await getItemData(req.body))
+    res.json(await getItemData(req.body))
 })
 
-app.post("/getDishData", async function(req, res)
+app.post("/getDishesData", async function(req, res)
 {
-    res.json(await getDishs(req.body))
+    res.json(await getDishes(req.body))
 })
 
 app.post("/deleteDish", async function(req, res)
@@ -74,9 +74,19 @@ app.post("/addItemOnMenu", async function(req, res)
     res.json(await addItemOnMenu(req.body))
 })
 
+app.post("/getDishData", async function(req, res)
+{
+    res.json(await getDish(req.body.id))
+})
+
+app.post("/updateItem", async function(req, res)
+{
+    res.json(await updateItem(req.body.data))
+})
+
 app.post("/removeDishControl", async function(req, res)
 {
-    res.send(await removeDishControl(req.body))
+    res.json(await removeDishControl(req.body))
 })
 
 app.post("/searchRestaurants", async function(req, res)
@@ -101,7 +111,7 @@ app.post("/getMenuData", async function(req, res)
 
 app.post("/makeAOrder", async function(req, res)
 {
-    res.json(makeAOrder(req.body.board, req.body.order))
+    res.json(await makeAOrder(req.body.board, req.body.order))
 })
 
 app.post("/savePhoto", upload.single('image'), async(req, res) => {
@@ -109,6 +119,10 @@ app.post("/savePhoto", upload.single('image'), async(req, res) => {
     res.json(msg)
 })
 
+app.post("/changePhoto", async(req, res) => {
+    res.json(await changePhoto(req.body))
+
+})
 
 app.listen(port, () => {
     console.log(`Entrei!!! Porta Usada: ${port}`)

@@ -8,7 +8,7 @@ const storage = multer.diskStorage({
     },
     destination: function(req, file, cb)
     {
-        let path = "./testeParaFotos"
+        let path = "./"
         cb(null,path)
     }
 })
