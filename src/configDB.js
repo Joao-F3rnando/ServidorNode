@@ -1,5 +1,5 @@
-import pkg from 'sqlite3';
-const { sqlite3 } = pkg;
+import pkg from 'sqlite3'
+const { sqlite3 } = pkg
 import { open } from 'sqlite'
 
 export async function openDB ()

@@ -15,6 +15,7 @@ function transformData(data) {
       } else {
         result.push({
           board: item.board,
+          value: item.price,
           ID: item.board,
           dishes: [
             {

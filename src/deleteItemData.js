@@ -6,7 +6,7 @@ export async function removeDishControl(infos)
         const db = await openDB()
         await db.all(`DELETE FROM checkData WHERE id_restaurant='${infos.idRestaurant}' AND board='${infos.board}'`)
         await closeDB()
-        return JSON.stringify('Pedido concluido com sucesso!!!')
+        return true
     } catch (err) {
         console.log(err)
         return err

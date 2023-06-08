@@ -20,7 +20,7 @@ export async function addItemOnMenu(itemData)
             activated
         ])
         await closeDB()
-        return 'Prato cadastrado com sucesso!!!'
+        return true
     } catch (error) {
         console.log(error)
         return error

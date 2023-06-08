@@ -42,7 +42,7 @@ export async function uploadFile(file){
         return response.data.id
 
     }catch(err){
-        console.log('Upload file error', err)
+        console.log('Erro ao subir a imagem', err)
     }
 }
 
@@ -68,7 +68,7 @@ export async function removeFile(id){
         return "Foto removida com sucesso!!!"
 
     }catch(err){
-        console.log('Upload file error', err)
+        console.log('Erro ao excluir a imagem', err)
     }
 }
 

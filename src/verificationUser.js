@@ -13,7 +13,6 @@ export async function verificationUser(userData) {
                 return {
                     id: userTeste.ID,
                     status: true,
-                    message: "Usuário encontrado"
                 }
             }
             else

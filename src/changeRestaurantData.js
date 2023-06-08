@@ -58,3 +58,15 @@ export async function changePhoto(data)
         return error
     }
 }
+
+export async function changePassword(password, id)
+{
+    try {
+        const db = await openDB()
+        await db.run(`UPDATE restaurantUserData SET password='${password}' WHERE ID='${id}'`)
+        return true
+    } catch (error) {
+        console.log(error)
+        return error
+    }
+}

@@ -7,8 +7,8 @@ import cors from 'cors'
 import { encrypt } from './crypt.js'
 import { createAccount } from "./createRestaurante.js"
 import { verificationUser } from "./verificationUser.js"
-import { getRestaurantId, optionsData, restaurantData, returnName } from "./getData.js"
-import { changeData, changePhoto } from "./changeRestaurantData.js"
+import { checkEmail, getRestaurantId, optionsData, restaurantData, returnName } from "./getData.js"
+import { changeData, changePassword, changePhoto } from "./changeRestaurantData.js"
 import { getItemData } from "./getItemData.js"
 import { uploadFile } from "./saveDrive.js"
 import { upload } from "./configMulter.js"
@@ -111,7 +111,7 @@ app.post("/getMenuData", async function(req, res)
 
 app.post("/makeAOrder", async function(req, res)
 {
-    res.json(await makeAOrder(req.body.board, req.body.order))
+    res.json(await makeAOrder(req.body.board, req.body.order, req.body.total))
 })
 
 app.post("/savePhoto", upload.single('image'), async(req, res) => {
@@ -122,6 +122,15 @@ app.post("/savePhoto", upload.single('image'), async(req, res) => {
 app.post("/changePhoto", async(req, res) => {
     res.json(await changePhoto(req.body))
 
+})
+
+app.post("/checkEmail", async(req, res) => {
+    res.json(await checkEmail(req.body.userEmail))
+})
+
+app.post("/newPassword", async(req, res) => {
+    req.body.password = encrypt(req.body.password)
+    res.json(await changePassword(req.body.password, req.body.id))
 })
 
 app.listen(port, () => {
